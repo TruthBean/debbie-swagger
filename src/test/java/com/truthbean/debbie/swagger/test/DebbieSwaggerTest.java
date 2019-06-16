@@ -27,7 +27,7 @@ public class DebbieSwaggerTest {
 
         BeanInitialization beanInitialization = factory.getBeanInitialization();
 
-        MvcRouterRegister.registerRouter(configuration, beanInitialization);
+        MvcRouterRegister.registerRouter(configuration, factory);
 
         OpenAPI oas = new OpenAPI();
         Info info = beanInitialization.getRegisterBean(Info.class);
