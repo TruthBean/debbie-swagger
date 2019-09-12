@@ -10,6 +10,11 @@ import com.truthbean.debbie.properties.DebbieConfigurationFactory;
  */
 public class SwaggerModuleStarter implements DebbieModuleStarter {
     @Override
+    public void registerBean(BeanFactoryHandler beanFactoryHandler) {
+
+    }
+
+    @Override
     public void starter(DebbieConfigurationFactory configurationFactory, BeanFactoryHandler beanFactoryHandler) {
         DebbieSwaggerConfiguration configuration = new DebbieSwaggerConfiguration();
         configuration.configure(beanFactoryHandler);

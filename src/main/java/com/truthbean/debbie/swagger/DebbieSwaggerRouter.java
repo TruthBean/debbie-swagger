@@ -94,12 +94,32 @@ public class DebbieSwaggerRouter {
         return view;
     }
 
+    @Router(urlPatterns = "swagger-ui-bundle-map", hasTemplate = true, responseType = MediaType.APPLICATION_JAVASCRIPT_UTF8)
+    public StaticResourcesView swaggerUiBundleMap() {
+        var view = new StaticResourcesView();
+        view.setPrefix("classpath*:/swagger-ui/3.22.2/");
+        view.setTemplate("swagger-ui-bundle");
+        view.setSuffix(".js.map");
+        view.setText(true);
+        return view;
+    }
+
     @Router(urlPatterns = "swagger-ui-standalone-preset", hasTemplate = true, responseType = MediaType.APPLICATION_JAVASCRIPT_UTF8)
     public StaticResourcesView swaggerUiStandaloneBundle() {
         var view = new StaticResourcesView();
         view.setPrefix("classpath*:/swagger-ui/3.22.2/");
         view.setTemplate("swagger-ui-standalone-preset");
         view.setSuffix(".js");
+        view.setText(true);
+        return view;
+    }
+
+    @Router(urlPatterns = "swagger-ui-standalone-preset-map", hasTemplate = true, responseType = MediaType.APPLICATION_JAVASCRIPT_UTF8)
+    public StaticResourcesView swaggerUiStandaloneBundleMap(){
+        var view = new StaticResourcesView();
+        view.setPrefix("classpath*:/swagger-ui/3.22.2/");
+        view.setTemplate("swagger-ui-standalone-preset");
+        view.setSuffix(".js.map");
         view.setText(true);
         return view;
     }
