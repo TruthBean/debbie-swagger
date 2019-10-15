@@ -19,4 +19,9 @@ public class SwaggerModuleStarter implements DebbieModuleStarter {
         DebbieSwaggerConfiguration configuration = new DebbieSwaggerConfiguration();
         configuration.configure(beanFactoryHandler);
     }
+
+    @Override
+    public int getOrder() {
+        return 52;
+    }
 }
