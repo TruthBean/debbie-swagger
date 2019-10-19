@@ -10,6 +10,7 @@ import com.truthbean.debbie.io.MediaTypeInfo;
 import com.truthbean.debbie.mvc.request.HttpMethod;
 import com.truthbean.debbie.mvc.router.MvcRouterRegister;
 import com.truthbean.debbie.mvc.router.Router;
+import com.truthbean.debbie.mvc.router.RouterAnnotationInfo;
 import com.truthbean.debbie.mvc.router.RouterInfo;
 import com.truthbean.debbie.mvc.url.RouterPathFragments;
 import io.swagger.v3.core.converter.AnnotatedType;
@@ -1038,7 +1039,7 @@ public class SwaggerReader implements OpenApiReader {
             type = rawType;
         }
 
-        if (method.getAnnotation(Router.class) != null) {
+        if (RouterAnnotationInfo.getRouterAnnotation(method) != null) {
             return type;
         }
         return null;

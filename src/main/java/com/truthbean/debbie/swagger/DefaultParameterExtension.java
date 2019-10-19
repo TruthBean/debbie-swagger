@@ -1,10 +1,10 @@
 package com.truthbean.debbie.swagger;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.truthbean.debbie.io.MediaTypeInfo;
-import com.truthbean.debbie.mvc.request.RequestParameter;
-import io.swagger.v3.core.util.Json;
+
+import com.truthbean.debbie.mvc.request.RequestParameterInfo;
 import io.swagger.v3.core.util.ParameterProcessor;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.parameters.Parameter;
@@ -40,39 +40,64 @@ public class DefaultParameterExtension extends AbstractOpenAPIExtension {
 
         Parameter parameter = null;
         for (Annotation annotation : annotations) {
-            if (annotation instanceof RequestParameter) {
-                RequestParameter param = (RequestParameter) annotation;
+            RequestParameterInfo param = RequestParameterInfo.fromAnnotation(annotation);
+            if (param != null) {
+                String name;
                 switch (param.paramType()) {
                     case QUERY:
                         parameter = new Parameter();
                         parameter.setIn(QUERY_PARAM);
-                        parameter.setName(param.name());
+                        name = param.value();
+                        if (name.isBlank()) {
+                            name = param.name();
+                        }
+                        parameter.setName(name);
                         break;
                     case PATH:
                         parameter = new Parameter();
                         parameter.setIn(PATH_PARAM);
-                        parameter.setName(param.name());
+                        name = param.value();
+                        if (name.isBlank()) {
+                            name = param.name();
+                        }
+                        parameter.setName(name);
                         break;
                     case MATRIX:
                         parameter = new Parameter();
                         parameter.setIn(PATH_PARAM);
                         parameter.setStyle(Parameter.StyleEnum.MATRIX);
-                        parameter.setName(param.name());
+                        name = param.value();
+                        if (name.isBlank()) {
+                            name = param.name();
+                        }
+                        parameter.setName(name);
                         break;
                     case HEAD:
                         parameter = new Parameter();
                         parameter.setIn(HEADER_PARAM);
-                        parameter.setName(param.name());
+                        name = param.value();
+                        if (name.isBlank()) {
+                            name = param.name();
+                        }
+                        parameter.setName(name);
                         break;
                     case COOKIE:
                         parameter = new Parameter();
                         parameter.setIn(COOKIE_PARAM);
-                        parameter.setName(param.name());
+                        name = param.value();
+                        if (name.isBlank()) {
+                            name = param.name();
+                        }
+                        parameter.setName(name);
                         break;
                     case PARAM:
                         parameter = new Parameter();
                         parameter.setIn(FORM_PARAM);
-                        parameter.setName(param.name());
+                        name = param.value();
+                        if (name.isBlank()) {
+                            name = param.name();
+                        }
+                        parameter.setName(name);
                         break;
                     default:
                         break;

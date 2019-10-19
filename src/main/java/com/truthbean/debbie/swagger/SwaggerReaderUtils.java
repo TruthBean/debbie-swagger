@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.truthbean.debbie.io.MediaTypeInfo;
 import com.truthbean.debbie.mvc.request.HttpMethod;
 import com.truthbean.debbie.mvc.router.Router;
+import com.truthbean.debbie.mvc.router.RouterAnnotationInfo;
 import io.swagger.v3.core.util.ReflectionUtils;
 import io.swagger.v3.oas.integration.api.OpenAPIConfiguration;
 import io.swagger.v3.oas.models.Components;
@@ -77,7 +78,7 @@ public class SwaggerReaderUtils {
     }
 
     public static HttpMethod[] extractOperationMethods(Method method, Iterator<OpenAPIExtension> chain) {
-        Router router = method.getAnnotation(Router.class);
+        RouterAnnotationInfo router = RouterAnnotationInfo.getRouterAnnotation(method);
         if (router != null) {
             var httpMethods = router.method();
             for (HttpMethod httpMethod : httpMethods) {
