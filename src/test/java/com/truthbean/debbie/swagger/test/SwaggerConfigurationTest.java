@@ -1,13 +1,8 @@
 package com.truthbean.debbie.swagger.test;
 
-import com.truthbean.debbie.bean.BeanInitialization;
-import com.truthbean.debbie.boot.DebbieApplication;
-import com.truthbean.debbie.boot.DebbieApplicationFactory;
-import com.truthbean.debbie.boot.DebbieBootApplication;
-import com.truthbean.debbie.mvc.MvcConfiguration;
-import com.truthbean.debbie.mvc.router.MvcRouterRegister;
-import com.truthbean.debbie.properties.DebbieConfigurationFactory;
+import com.truthbean.debbie.bean.BeanInject;
 import com.truthbean.debbie.swagger.SwaggerReader;
+import com.truthbean.debbie.test.DebbieApplicationExtension;
 import com.truthbean.debbie.util.JacksonUtils;
 import io.swagger.v3.oas.integration.GenericOpenApiContextBuilder;
 import io.swagger.v3.oas.integration.OpenApiConfigurationException;
@@ -15,28 +10,21 @@ import io.swagger.v3.oas.integration.SwaggerConfiguration;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.List;
 
-@DebbieBootApplication
-public class DebbieSwaggerTest {
-    public static void main(String[] args) {
-        ClassLoader classLoader = DebbieSwaggerTest.class.getClassLoader();
-        DebbieApplicationFactory factory = new DebbieApplicationFactory(classLoader);
-        factory.config(DebbieSwaggerTest.class);
-        factory.callStarter();
+/**
+ * @author truthbean/Rogar·Q
+ * @since 0.0.2
+ */
+@ExtendWith({DebbieApplicationExtension.class})
+public class SwaggerConfigurationTest {
 
-        DebbieApplication debbieApplication = DebbieApplicationFactory.create(SwaggerApplication.class);
-
-        DebbieConfigurationFactory configurationFactory = factory.getConfigurationFactory();
-        MvcConfiguration configuration = configurationFactory.factory(MvcConfiguration.class, factory);
-
-        BeanInitialization beanInitialization = factory.getBeanInitialization();
-
-        MvcRouterRegister.registerRouter(configuration, factory);
-
+    @Test
+    public void content(@BeanInject Info info) {
         OpenAPI oas = new OpenAPI();
-        Info info = beanInitialization.getRegisterBean(Info.class);
 
         oas.info(info);
         oas.servers(List.of(new Server().url("http://localhost:8090").description("debbie swagger example")));
@@ -58,6 +46,5 @@ public class DebbieSwaggerTest {
         } catch (OpenApiConfigurationException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
-
     }
 }

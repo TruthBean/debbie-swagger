@@ -8,6 +8,7 @@ import com.truthbean.debbie.bean.BeanInject;
 import com.truthbean.debbie.io.MediaType;
 import com.truthbean.debbie.mvc.response.view.StaticResourcesView;
 import com.truthbean.debbie.mvc.router.Router;
+import com.truthbean.debbie.mvc.router.RouterPathSplicer;
 import com.truthbean.debbie.properties.PropertyInject;
 import com.truthbean.debbie.watcher.Watcher;
 import io.swagger.v3.oas.integration.SwaggerConfiguration;
@@ -21,7 +22,7 @@ public class DebbieSwaggerRouter {
     private String dispatcherMapping;
 
     @BeanInject(require = false, name = "openApi")
-    private OpenAPI openAPI;
+    private OpenAPI openApi;
 
     @BeanInject(require = false)
     private SwaggerConfiguration swaggerConfiguration;
@@ -38,8 +39,8 @@ public class DebbieSwaggerRouter {
             SwaggerReader reader;
             if (swaggerConfiguration != null) {
                 reader = new SwaggerReader(swaggerConfiguration);
-            } else if (openAPI != null) {
-                reader = new SwaggerReader(openAPI);
+            } else if (openApi != null) {
+                reader = new SwaggerReader(openApi);
             } else {
                 reader = new SwaggerReader();
             }
@@ -132,9 +133,9 @@ public class DebbieSwaggerRouter {
                 "  <head>\n" +
                 "    <meta charset=\"UTF-8\">\n" +
                 "    <title>Swagger UI</title>\n" +
-                "    <link rel=\"stylesheet\" type=\"text/css\" href=\"/" + dispatcherMapping.replace("**", "swagger-css") + "\" >\n" +
-                "    <link rel=\"icon\" type=\"image/png\" href=\"/" + dispatcherMapping.replace("**", "favicon-32x32") + "\" sizes=\"32x32\" />\n" +
-                "    <link rel=\"icon\" type=\"image/png\" href=\"/" + dispatcherMapping.replace("**", "favicon-16x16") + "\" sizes=\"16x16\" />\n" +
+                "    <link rel=\"stylesheet\" type=\"text/css\" href=\"/" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "swagger-css") + "\" >\n" +
+                "    <link rel=\"icon\" type=\"image/png\" href=\"/" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "favicon-32x32") + "\" sizes=\"32x32\" />\n" +
+                "    <link rel=\"icon\" type=\"image/png\" href=\"/" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "favicon-16x16") + "\" sizes=\"16x16\" />\n" +
                 "    <style>\n" +
                 "      html\n" +
                 "      {\n" +
@@ -168,7 +169,7 @@ public class DebbieSwaggerRouter {
                 "      window.onload = function() {\n" +
                 "      // Begin Swagger UI call region\n" +
                 "      const ui = SwaggerUIBundle({\n" +
-                "        url: \"/" + dispatcherMapping.replace("**", "swagger") + "\",\n" +
+                "        url: \"/" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "swagger") + "\",\n" +
                 "        dom_id: '#swagger-ui',\n" +
                 "        deepLinking: true,\n" +
                 "        presets: [\n" +

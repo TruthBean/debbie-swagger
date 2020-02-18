@@ -24,4 +24,9 @@ public class SwaggerModuleStarter implements DebbieModuleStarter {
     public int getOrder() {
         return 52;
     }
+
+    @Override
+    public void release() {
+
+    }
 }

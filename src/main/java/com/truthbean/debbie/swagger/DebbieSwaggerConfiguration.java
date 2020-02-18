@@ -47,7 +47,7 @@ public class DebbieSwaggerConfiguration {
 
         OpenAPI result;
         try {
-            result = new GenericOpenApiContextBuilder()
+            result = new GenericOpenApiContextBuilder<>()
                     .openApiConfiguration(oasConfig)
                     .buildContext(true)
                     .read();
