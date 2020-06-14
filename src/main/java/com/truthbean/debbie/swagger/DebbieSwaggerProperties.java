@@ -1,3 +1,12 @@
+/**
+ * Copyright (c) 2020 TruthBean(Rogar·Q)
+ *    Debbie is licensed under Mulan PSL v2.
+ *    You can use this software according to the terms and conditions of the Mulan PSL v2.
+ *    You may obtain a copy of Mulan PSL v2 at:
+ *                http://license.coscl.org.cn/MulanPSL2
+ *    THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ *    See the Mulan PSL v2 for more details.
+ */
 package com.truthbean.debbie.swagger;
 
 import com.truthbean.debbie.properties.BaseProperties;
@@ -36,16 +45,14 @@ public class DebbieSwaggerProperties extends BaseProperties {
                 .title(getValue(INFO_TITLE))
                 .description(getValue(INFO_DESCRIPTION))
                 .termsOfService(getValue(INFO_TERMS_OF_SERVICE))
-                .contact(
-                        new Contact()
-                                .name(getValue(INFO_CONTACT_NAME))
-                                .email(getValue(INFO_CONTACT_EMAIL))
-                                .url(getValue(INFO_CONTACT_URL))
+                .contact(new Contact()
+                        .name(getValue(INFO_CONTACT_NAME))
+                        .email(getValue(INFO_CONTACT_EMAIL))
+                        .url(getValue(INFO_CONTACT_URL))
                 )
-                .license(
-                        new License()
-                                .name(getValue(INFO_LICENSE_NAME))
-                                .url(getValue(INFO_LICENSE_URL))
+                .license(new License()
+                        .name(getValue(INFO_LICENSE_NAME))
+                        .url(getValue(INFO_LICENSE_URL))
                 )
                 .version(getValue(INFO_VERSION));
 

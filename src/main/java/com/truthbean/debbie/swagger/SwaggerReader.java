@@ -1,3 +1,12 @@
+/**
+ * Copyright (c) 2020 TruthBean(Rogar·Q)
+ *    Debbie is licensed under Mulan PSL v2.
+ *    You can use this software according to the terms and conditions of the Mulan PSL v2.
+ *    You may obtain a copy of Mulan PSL v2 at:
+ *                http://license.coscl.org.cn/MulanPSL2
+ *    THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ *    See the Mulan PSL v2 for more details.
+ */
 package com.truthbean.debbie.swagger;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -58,8 +67,8 @@ public class SwaggerReader implements OpenApiReader {
 
     private OpenAPI openAPI;
     private Components components;
-    private Paths paths;
-    private Set<Tag> openApiTags;
+    private final Paths paths;
+    private final Set<Tag> openApiTags;
 
     private final Set<RouterInfo> routerInfoSet;
 
@@ -159,14 +168,19 @@ public class SwaggerReader implements OpenApiReader {
             return openAPI;
         }
 
-        io.swagger.v3.oas.annotations.responses.ApiResponse[] classResponses = ReflectionUtils.getRepeatableAnnotationsArray(cls, io.swagger.v3.oas.annotations.responses.ApiResponse.class);
+        io.swagger.v3.oas.annotations.responses.ApiResponse[] classResponses =
+                ReflectionUtils.getRepeatableAnnotationsArray(cls, io.swagger.v3.oas.annotations.responses.ApiResponse.class);
 
-        List<io.swagger.v3.oas.annotations.security.SecurityScheme> apiSecurityScheme = ReflectionUtils.getRepeatableAnnotations(cls, io.swagger.v3.oas.annotations.security.SecurityScheme.class);
-        List<io.swagger.v3.oas.annotations.security.SecurityRequirement> apiSecurityRequirements = ReflectionUtils.getRepeatableAnnotations(cls, io.swagger.v3.oas.annotations.security.SecurityRequirement.class);
+        List<io.swagger.v3.oas.annotations.security.SecurityScheme> apiSecurityScheme =
+                ReflectionUtils.getRepeatableAnnotations(cls, io.swagger.v3.oas.annotations.security.SecurityScheme.class);
+        List<io.swagger.v3.oas.annotations.security.SecurityRequirement> apiSecurityRequirements =
+                ReflectionUtils.getRepeatableAnnotations(cls, io.swagger.v3.oas.annotations.security.SecurityRequirement.class);
 
         ExternalDocumentation apiExternalDocs = ReflectionUtils.getAnnotation(cls, ExternalDocumentation.class);
-        io.swagger.v3.oas.annotations.tags.Tag[] apiTags = ReflectionUtils.getRepeatableAnnotationsArray(cls, io.swagger.v3.oas.annotations.tags.Tag.class);
-        io.swagger.v3.oas.annotations.servers.Server[] apiServers = ReflectionUtils.getRepeatableAnnotationsArray(cls, io.swagger.v3.oas.annotations.servers.Server.class);
+        io.swagger.v3.oas.annotations.tags.Tag[] apiTags =
+                ReflectionUtils.getRepeatableAnnotationsArray(cls, io.swagger.v3.oas.annotations.tags.Tag.class);
+        io.swagger.v3.oas.annotations.servers.Server[] apiServers =
+                ReflectionUtils.getRepeatableAnnotationsArray(cls, io.swagger.v3.oas.annotations.servers.Server.class);
 
         // OpenApiDefinition
         OpenAPIDefinition openAPIDefinition = ReflectionUtils.getAnnotation(cls, OpenAPIDefinition.class);
@@ -294,7 +308,8 @@ public class SwaggerReader implements OpenApiReader {
                             }
                         }
 
-                        io.swagger.v3.oas.annotations.Operation apiOperation = ReflectionUtils.getAnnotation(method, io.swagger.v3.oas.annotations.Operation.class);
+                        io.swagger.v3.oas.annotations.Operation apiOperation =
+                                ReflectionUtils.getAnnotation(method, io.swagger.v3.oas.annotations.Operation.class);
                         JsonView jsonViewAnnotation;
                         JsonView jsonViewAnnotationForRequestBody;
                         if (apiOperation != null && apiOperation.ignoreJsonView()) {
@@ -562,12 +577,17 @@ public class SwaggerReader implements OpenApiReader {
 
         io.swagger.v3.oas.annotations.Operation apiOperation = ReflectionUtils.getAnnotation(method, io.swagger.v3.oas.annotations.Operation.class);
 
-        List<io.swagger.v3.oas.annotations.security.SecurityRequirement> apiSecurity = ReflectionUtils.getRepeatableAnnotations(method, io.swagger.v3.oas.annotations.security.SecurityRequirement.class);
-        List<io.swagger.v3.oas.annotations.callbacks.Callback> apiCallbacks = ReflectionUtils.getRepeatableAnnotations(method, io.swagger.v3.oas.annotations.callbacks.Callback.class);
+        List<io.swagger.v3.oas.annotations.security.SecurityRequirement> apiSecurity =
+                ReflectionUtils.getRepeatableAnnotations(method, io.swagger.v3.oas.annotations.security.SecurityRequirement.class);
+        List<io.swagger.v3.oas.annotations.callbacks.Callback> apiCallbacks =
+                ReflectionUtils.getRepeatableAnnotations(method, io.swagger.v3.oas.annotations.callbacks.Callback.class);
         List<Server> apiServers = ReflectionUtils.getRepeatableAnnotations(method, Server.class);
-        List<io.swagger.v3.oas.annotations.tags.Tag> apiTags = ReflectionUtils.getRepeatableAnnotations(method, io.swagger.v3.oas.annotations.tags.Tag.class);
-        List<io.swagger.v3.oas.annotations.Parameter> apiParameters = ReflectionUtils.getRepeatableAnnotations(method, io.swagger.v3.oas.annotations.Parameter.class);
-        List<io.swagger.v3.oas.annotations.responses.ApiResponse> apiResponses = ReflectionUtils.getRepeatableAnnotations(method, io.swagger.v3.oas.annotations.responses.ApiResponse.class);
+        List<io.swagger.v3.oas.annotations.tags.Tag> apiTags =
+                ReflectionUtils.getRepeatableAnnotations(method, io.swagger.v3.oas.annotations.tags.Tag.class);
+        List<io.swagger.v3.oas.annotations.Parameter> apiParameters =
+                ReflectionUtils.getRepeatableAnnotations(method, io.swagger.v3.oas.annotations.Parameter.class);
+        List<io.swagger.v3.oas.annotations.responses.ApiResponse> apiResponses =
+                ReflectionUtils.getRepeatableAnnotations(method, io.swagger.v3.oas.annotations.responses.ApiResponse.class);
         io.swagger.v3.oas.annotations.parameters.RequestBody apiRequestBody =
                 ReflectionUtils.getAnnotation(method, io.swagger.v3.oas.annotations.parameters.RequestBody.class);
 
@@ -698,7 +718,8 @@ public class SwaggerReader implements OpenApiReader {
 
         final Class<?> subResource = getSubResourceWithJaxRsSubresourceLocatorSpecs(method);
         if (!shouldIgnoreClass(returnType.getTypeName()) && !method.getGenericReturnType().equals(subResource)) {
-            ResolvedSchema resolvedSchema = ModelConverters.getInstance().resolveAsResolvedSchema(new AnnotatedType(returnType).resolveAsRef(true).jsonViewAnnotation(jsonViewAnnotation));
+            ResolvedSchema resolvedSchema = ModelConverters.getInstance()
+                    .resolveAsResolvedSchema(new AnnotatedType(returnType).resolveAsRef(true).jsonViewAnnotation(jsonViewAnnotation));
             if (resolvedSchema.schema != null) {
                 Schema returnTypeSchema = resolvedSchema.schema;
                 Content content = new Content();
@@ -944,8 +965,7 @@ public class SwaggerReader implements OpenApiReader {
         final OpenAPIExtension extension = chain.next();
         LOGGER.debug("trying extension {}", extension);
 
-        final ResolvedParameter extractParametersResult = extension.extractParameters(annotations, type, typesToSkip, components, consumes, true, jsonViewAnnotation, chain);
-        return extractParametersResult;
+        return extension.extractParameters(annotations, type, typesToSkip, components, consumes, true, jsonViewAnnotation, chain);
     }
 
     private Set<String> extractOperationIdFromPathItem(PathItem path) {

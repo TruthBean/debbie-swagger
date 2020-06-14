@@ -1,3 +1,12 @@
+/**
+ * Copyright (c) 2020 TruthBean(Rogar·Q)
+ *    Debbie is licensed under Mulan PSL v2.
+ *    You can use this software according to the terms and conditions of the Mulan PSL v2.
+ *    You may obtain a copy of Mulan PSL v2 at:
+ *                http://license.coscl.org.cn/MulanPSL2
+ *    THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ *    See the Mulan PSL v2 for more details.
+ */
 package com.truthbean.debbie.swagger;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -17,7 +26,9 @@ public class OperationParser {
 
     public static final String COMPONENTS_REF = "#/components/schemas/";
 
-    public static Optional<RequestBody> getRequestBody(io.swagger.v3.oas.annotations.parameters.RequestBody requestBody, MediaTypeInfo consumes, Components components, JsonView jsonViewAnnotation) {
+    public static Optional<RequestBody> getRequestBody(io.swagger.v3.oas.annotations.parameters.RequestBody requestBody,
+                                                       MediaTypeInfo consumes, Components components,
+                                                       JsonView jsonViewAnnotation) {
         if (requestBody == null) {
             return Optional.empty();
         }
@@ -55,11 +66,14 @@ public class OperationParser {
             return Optional.empty();
         }
         AnnotationsUtils.getContent(requestBody.content(), new String[0],
-                consumes == null ? new String[0] : new String[]{consumes.toString()}, null, components, jsonViewAnnotation).ifPresent(requestBodyObject::setContent);
+                consumes == null ? new String[0] : new String[]{consumes.toString()}, null, components, jsonViewAnnotation)
+                .ifPresent(requestBodyObject::setContent);
         return Optional.of(requestBodyObject);
     }
 
-    public static Optional<ApiResponses> getApiResponses(final io.swagger.v3.oas.annotations.responses.ApiResponse[] responses, MediaTypeInfo produces, Components components, JsonView jsonViewAnnotation) {
+    public static Optional<ApiResponses> getApiResponses(final io.swagger.v3.oas.annotations.responses.ApiResponse[] responses,
+                                                         MediaTypeInfo produces, Components components,
+                                                         JsonView jsonViewAnnotation) {
         if (responses == null) {
             return Optional.empty();
         }

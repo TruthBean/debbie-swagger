@@ -1,3 +1,12 @@
+/**
+ * Copyright (c) 2020 TruthBean(Rogar·Q)
+ *    Debbie is licensed under Mulan PSL v2.
+ *    You can use this software according to the terms and conditions of the Mulan PSL v2.
+ *    You may obtain a copy of Mulan PSL v2 at:
+ *                http://license.coscl.org.cn/MulanPSL2
+ *    THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ *    See the Mulan PSL v2 for more details.
+ */
 package com.truthbean.debbie.swagger;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -112,15 +121,6 @@ public class DefaultParameterExtension extends AbstractOpenAPIExtension {
                 if (StringUtils.isNotBlank(((io.swagger.v3.oas.annotations.Parameter) annotation).ref())) {
                     parameter.$ref(((io.swagger.v3.oas.annotations.Parameter) annotation).ref());
                 }
-            } else {
-                List<Parameter> formParameters = new ArrayList<>();
-                List<Parameter> parameters = new ArrayList<>();
-                if (handleAdditionalAnnotation(parameters, formParameters, annotation, type, typesToSkip, consumes, components, includeRequestBody, jsonViewAnnotation)) {
-                    ResolvedParameter extractParametersResult = new ResolvedParameter();
-                    extractParametersResult.addParameters(parameters);
-                    extractParametersResult.addFormParameters(formParameters);
-                    return extractParametersResult;
-                }
             }
         }
         List<Parameter> parameters = new ArrayList<>();
@@ -162,127 +162,6 @@ public class DefaultParameterExtension extends AbstractOpenAPIExtension {
             }
         }
         return extractParametersResult;
-    }
-
-    /**
-     * Adds additional annotation processing support
-     *
-     * @param parameters
-     * @param annotation
-     * @param type
-     * @param typesToSkip
-     */
-
-    private boolean handleAdditionalAnnotation(List<Parameter> parameters, List<Parameter> formParameters, Annotation annotation,
-                                               final Type type, Set<Type> typesToSkip, MediaTypeInfo consumes,
-                                               Components components, boolean includeRequestBody, JsonView jsonViewAnnotation) {
-        boolean processed = false;
-        /*if (BeanParam.class.isAssignableFrom(annotation.getClass())) {
-            // Use Jackson's logic for processing Beans
-            final BeanDescription beanDesc = mapper.getSerializationConfig().introspect(constructType(type));
-            final List<BeanPropertyDefinition> properties = beanDesc.findProperties();
-
-            for (final BeanPropertyDefinition propDef : properties) {
-                final AnnotatedField field = propDef.getField();
-                final AnnotatedMethod setter = propDef.getSetter();
-                final AnnotatedMethod getter = propDef.getGetter();
-                final List<Annotation> paramAnnotations = new ArrayList<Annotation>();
-                final Iterator<OpenAPIExtension> extensions = OpenAPIExtensions.chain();
-                Type paramType = null;
-
-                // Gather the field's details
-                if (field != null) {
-                    paramType = field.getType();
-
-                    for (final Annotation fieldAnnotation : field.annotations()) {
-                        if (!paramAnnotations.contains(fieldAnnotation)) {
-                            paramAnnotations.add(fieldAnnotation);
-                        }
-                    }
-                }
-
-                // Gather the setter's details but only the ones we need
-                if (setter != null) {
-                    // Do not set the param class/type from the setter if the values are already identified
-                    if (paramType == null) {
-                        // paramType will stay null if there is no parameter
-                        paramType = setter.getParameterType(0);
-                    }
-
-                    for (final Annotation fieldAnnotation : setter.annotations()) {
-                        if (!paramAnnotations.contains(fieldAnnotation)) {
-                            paramAnnotations.add(fieldAnnotation);
-                        }
-                    }
-                }
-
-                // Gather the getter's details but only the ones we need
-                if (getter != null) {
-                    // Do not set the param class/type from the getter if the values are already identified
-                    if (paramType == null) {
-                        paramType = getter.getType();
-                    }
-
-                    for (final Annotation fieldAnnotation : getter.annotations()) {
-                        if (!paramAnnotations.contains(fieldAnnotation)) {
-                            paramAnnotations.add(fieldAnnotation);
-                        }
-                    }
-                }
-
-                if (paramType == null) {
-                    continue;
-                }
-
-                // Re-process all Bean fields and let the default swagger-jaxrs/swagger-jersey-jaxrs processors do their thing
-                ResolvedParameter resolvedParameter = extensions.next().extractParameters(
-                        paramAnnotations,
-                        paramType,
-                        typesToSkip,
-                        components,
-                        consumes,
-                        includeRequestBody,
-                        jsonViewAnnotation,
-                        extensions);
-
-                List<Parameter> extractedParameters =
-                        resolvedParameter.parameters;
-
-                for (Parameter p : extractedParameters) {
-                    Parameter processedParam = ParameterProcessor.applyAnnotations(
-                            p,
-                            paramType,
-                            paramAnnotations,
-                            components,
-                            new String[0],
-                            consumes == null ? new String[0] : new String[]{consumes.toString()},
-                            jsonViewAnnotation);
-                    if (processedParam != null) {
-                        parameters.add(processedParam);
-                    }
-                }
-
-                List<Parameter> extractedFormParameters =
-                        resolvedParameter.formParameters;
-
-                for (Parameter p : extractedFormParameters) {
-                    Parameter processedParam = ParameterProcessor.applyAnnotations(
-                            p,
-                            paramType,
-                            paramAnnotations,
-                            components,
-                            new String[0],
-                            consumes == null ? new String[0] : new String[]{consumes.toString()},
-                            jsonViewAnnotation);
-                    if (processedParam != null) {
-                        formParameters.add(processedParam);
-                    }
-                }
-
-                processed = true;
-            }
-        }*/
-        return processed;
     }
 
     @Override
