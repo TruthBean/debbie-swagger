@@ -21,12 +21,7 @@ import java.util.List;
 @DebbieBootApplication
 public class DebbieSwaggerTest {
     public static void main(String[] args) {
-        ClassLoader classLoader = DebbieSwaggerTest.class.getClassLoader();
-        DebbieApplicationFactory factory = new DebbieApplicationFactory(classLoader);
-        factory.config(DebbieSwaggerTest.class);
-        factory.callStarter();
-
-        DebbieApplication debbieApplication = DebbieApplicationFactory.create(SwaggerApplication.class);
+        DebbieApplicationFactory factory = DebbieApplicationFactory.configure(DebbieSwaggerTest.class);
 
         DebbieConfigurationFactory configurationFactory = factory.getConfigurationFactory();
         MvcConfiguration configuration = configurationFactory.factory(MvcConfiguration.class, factory);

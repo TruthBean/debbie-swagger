@@ -167,10 +167,10 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
-            <version>2.9.10</version>
+            <version>2.10.2</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.fasterxml.jackson.core</groupId>
@@ -178,12 +178,12 @@
                 </exclusion>
             </exclusions>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.13.0</version>
+            <version>2.13.2</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -205,6 +205,7 @@
                     <release>11</release>
                     <encoding>UTF-8</encoding>
                     <compilerArgs>
+                        <compilerArg>-parameters</compilerArg>
                         <arg>-J--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED</arg>
                     </compilerArgs>
                 </configuration>
@@ -266,7 +267,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <configuration>
                     <attach>true</attach>
                     <charset>UTF-8</charset>
