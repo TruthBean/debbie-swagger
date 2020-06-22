@@ -15,7 +15,7 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
 
     <groupId>com.truthbean.debbie</groupId>
     <artifactId>debbie-swagger</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2-RELEASE</version>
 
     <packaging>jar</packaging>
 
