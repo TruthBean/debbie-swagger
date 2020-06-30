@@ -19,6 +19,9 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @OpenAPIDefinition(
         tags = {
                 @Tag(name = "example", description = "debbie example router")
@@ -30,8 +33,10 @@ public class DebbieSwaggerDemoRouter {
 
     @Operation(tags = {"example"})
     @Router(urlPatterns = "/swagger", method = HttpMethod.GET, responseType = MediaType.APPLICATION_JSON_UTF8)
-    public String swagger(@RequestParameter(name = "test", paramType = RequestParameterType.QUERY) String test) {
-        return "{\"swagger test\": " + test + "}";
+    public Map<String, String> swagger(@RequestParameter(name = "test", paramType = RequestParameterType.QUERY) String test) {
+        Map<String, String> map = new HashMap<>();
+        map.put("swagger test", test);
+        return map;
     }
 
 }

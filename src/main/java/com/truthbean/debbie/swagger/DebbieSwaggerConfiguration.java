@@ -9,7 +9,7 @@
  */
 package com.truthbean.debbie.swagger;
 
-import com.truthbean.debbie.bean.BeanFactoryHandler;
+import com.truthbean.debbie.bean.BeanFactoryContext;
 import com.truthbean.debbie.bean.BeanInitialization;
 import com.truthbean.debbie.bean.DebbieBeanInfo;
 import io.swagger.v3.oas.integration.GenericOpenApiContextBuilder;
@@ -18,8 +18,8 @@ import io.swagger.v3.oas.integration.SwaggerConfiguration;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.truthbean.Logger;
+import com.truthbean.logger.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -29,10 +29,10 @@ import java.util.ArrayList;
  */
 public class DebbieSwaggerConfiguration {
 
-    public void configure(BeanFactoryHandler beanFactoryHandler) {
+    public void configure(BeanFactoryContext context) {
         OpenAPI oas = new OpenAPI();
 
-        BeanInitialization beanInitialization = beanFactoryHandler.getBeanInitialization();
+        BeanInitialization beanInitialization = context.getBeanInitialization();
         beanInitialization.init(DebbieSwaggerRouter.class);
 
         Info info = beanInitialization.getRegisterBean(Info.class);
@@ -71,7 +71,7 @@ public class DebbieSwaggerConfiguration {
         beanInfo.setBeanName("openApi");
         beanInfo.setBean(result);
         beanInitialization.initSingletonBean(beanInfo);
-        beanFactoryHandler.refreshBeans();
+        context.refreshBeans();
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DebbieSwaggerConfiguration.class);

@@ -15,7 +15,7 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
 
     <groupId>com.truthbean.debbie</groupId>
     <artifactId>debbie-swagger</artifactId>
-    <version>0.0.2-RELEASE</version>
+    <version>0.1.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
@@ -28,6 +28,7 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <jackson.version>2.10.4</jackson.version>
+        <logger.version>0.1.0-SNAPSHOT</logger.version>
     </properties>
 
     <distributionManagement>
@@ -164,9 +165,9 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.30</version>
+            <groupId>com.truthbean.logger</groupId>
+            <artifactId>core</artifactId>
+            <version>${logger.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -184,6 +185,18 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.truthbean.logger</groupId>
+            <artifactId>log4j2</artifactId>
+            <version>${logger.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>

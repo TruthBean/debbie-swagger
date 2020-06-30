@@ -9,7 +9,7 @@
  */
 package com.truthbean.debbie.swagger;
 
-import com.truthbean.debbie.bean.BeanFactoryHandler;
+import com.truthbean.debbie.bean.BeanFactoryContext;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.properties.DebbieConfigurationFactory;
 
@@ -20,9 +20,9 @@ import com.truthbean.debbie.properties.DebbieConfigurationFactory;
 public class SwaggerModuleStarter implements DebbieModuleStarter {
 
     @Override
-    public void configure(DebbieConfigurationFactory configurationFactory, BeanFactoryHandler beanFactoryHandler) {
+    public void configure(DebbieConfigurationFactory configurationFactory, BeanFactoryContext context) {
         DebbieSwaggerConfiguration configuration = new DebbieSwaggerConfiguration();
-        configuration.configure(beanFactoryHandler);
+        configuration.configure(context);
     }
 
     @Override
