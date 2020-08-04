@@ -22,6 +22,7 @@ import com.truthbean.debbie.mvc.router.Router;
 import com.truthbean.debbie.mvc.router.RouterAnnotationInfo;
 import com.truthbean.debbie.mvc.router.RouterInfo;
 import com.truthbean.debbie.mvc.url.RouterPathFragments;
+import com.truthbean.debbie.util.StringUtils;
 import io.swagger.v3.core.converter.AnnotatedType;
 import io.swagger.v3.core.converter.ModelConverters;
 import io.swagger.v3.core.converter.ResolvedSchema;
@@ -47,7 +48,6 @@ import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.tags.Tag;
-import org.apache.commons.lang3.StringUtils;
 import com.truthbean.Logger;
 import com.truthbean.logger.LoggerFactory;
 

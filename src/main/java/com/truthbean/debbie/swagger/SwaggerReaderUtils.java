@@ -14,11 +14,11 @@ import com.truthbean.debbie.io.MediaTypeInfo;
 import com.truthbean.debbie.mvc.request.HttpMethod;
 import com.truthbean.debbie.mvc.router.Router;
 import com.truthbean.debbie.mvc.router.RouterAnnotationInfo;
+import com.truthbean.debbie.util.StringUtils;
 import io.swagger.v3.core.util.ReflectionUtils;
 import io.swagger.v3.oas.integration.api.OpenAPIConfiguration;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.parameters.Parameter;
-import org.apache.commons.lang3.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

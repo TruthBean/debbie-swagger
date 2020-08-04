@@ -10,8 +10,8 @@
 package com.truthbean.debbie.swagger;
 
 import com.truthbean.debbie.bean.BeanInitialization;
-import com.truthbean.debbie.bean.DebbieApplicationContext;
 import com.truthbean.debbie.bean.DebbieBeanInfo;
+import com.truthbean.debbie.core.ApplicationContext;
 import io.swagger.v3.oas.integration.GenericOpenApiContextBuilder;
 import io.swagger.v3.oas.integration.OpenApiConfigurationException;
 import io.swagger.v3.oas.integration.SwaggerConfiguration;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
  */
 public class DebbieSwaggerConfiguration {
 
-    public void configure(DebbieApplicationContext context) {
+    public void configure(ApplicationContext context) {
         OpenAPI oas = new OpenAPI();
 
         BeanInitialization beanInitialization = context.getBeanInitialization();

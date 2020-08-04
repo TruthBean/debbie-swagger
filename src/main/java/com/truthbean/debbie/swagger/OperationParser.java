@@ -11,13 +11,13 @@ package com.truthbean.debbie.swagger;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.truthbean.debbie.io.MediaTypeInfo;
+import com.truthbean.debbie.util.StringUtils;
 import io.swagger.v3.core.util.AnnotationsUtils;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.links.Link;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 import java.util.Optional;

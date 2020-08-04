@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.swagger;
 
+import com.truthbean.debbie.util.StringUtils;
 import io.swagger.v3.core.util.AnnotationsUtils;
 import io.swagger.v3.oas.annotations.security.OAuthScope;
 import io.swagger.v3.oas.models.security.OAuthFlow;
@@ -16,7 +17,6 @@ import io.swagger.v3.oas.models.security.OAuthFlows;
 import io.swagger.v3.oas.models.security.Scopes;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

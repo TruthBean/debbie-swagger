@@ -11,11 +11,12 @@ package com.truthbean.debbie.swagger.test;
 
 import com.truthbean.debbie.bean.BeanInitialization;
 import com.truthbean.debbie.boot.DebbieApplication;
-import com.truthbean.debbie.boot.DebbieApplicationFactory;
 import com.truthbean.debbie.boot.DebbieBootApplication;
+import com.truthbean.debbie.core.ApplicationContext;
+import com.truthbean.debbie.core.ApplicationFactory;
 import com.truthbean.debbie.mvc.MvcConfiguration;
 import com.truthbean.debbie.mvc.router.MvcRouterRegister;
-import com.truthbean.debbie.properties.DebbieConfigurationFactory;
+import com.truthbean.debbie.properties.DebbieConfigurationCenter;
 import com.truthbean.debbie.swagger.SwaggerReader;
 import com.truthbean.debbie.util.JacksonUtils;
 import io.swagger.v3.oas.integration.GenericOpenApiContextBuilder;
@@ -30,14 +31,15 @@ import java.util.List;
 @DebbieBootApplication
 public class DebbieSwaggerTest {
     public static void main(String[] args) {
-        DebbieApplicationFactory factory = DebbieApplicationFactory.configure(DebbieSwaggerTest.class);
+        ApplicationFactory factory = ApplicationFactory.configure(DebbieSwaggerTest.class);
+        ApplicationContext context = factory.getApplicationContext();
 
-        DebbieConfigurationFactory configurationFactory = factory.getConfigurationFactory();
-        MvcConfiguration configuration = configurationFactory.factory(MvcConfiguration.class, factory);
+        DebbieConfigurationCenter configurationFactory = context.getConfigurationCenter();
+        MvcConfiguration configuration = configurationFactory.factory(MvcConfiguration.class, context);
 
-        BeanInitialization beanInitialization = factory.getBeanInitialization();
+        BeanInitialization beanInitialization = context.getBeanInitialization();
 
-        MvcRouterRegister.registerRouter(configuration, factory);
+        MvcRouterRegister.registerRouter(configuration, context);
 
         OpenAPI oas = new OpenAPI();
         Info info = beanInitialization.getRegisterBean(Info.class);

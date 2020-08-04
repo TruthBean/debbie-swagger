@@ -9,11 +9,12 @@
  */
 package com.truthbean.debbie.swagger.test;
 
-import com.truthbean.debbie.boot.DebbieApplicationFactory;
+
+import com.truthbean.debbie.core.ApplicationFactory;
 
 public class SwaggerApplication {
     public static void main(String[] args) {
-        var application = DebbieApplicationFactory.create(SwaggerApplication.class);
+        var application = ApplicationFactory.create(SwaggerApplication.class);
         application.start(args);
     }
 }

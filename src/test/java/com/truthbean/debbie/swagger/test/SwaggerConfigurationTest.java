@@ -11,7 +11,7 @@ package com.truthbean.debbie.swagger.test;
 
 import com.truthbean.debbie.bean.BeanInject;
 import com.truthbean.debbie.swagger.SwaggerReader;
-import com.truthbean.debbie.test.DebbieApplicationExtension;
+import com.truthbean.debbie.test.annotation.DebbieApplicationTest;
 import com.truthbean.debbie.util.JacksonUtils;
 import io.swagger.v3.oas.integration.GenericOpenApiContextBuilder;
 import io.swagger.v3.oas.integration.OpenApiConfigurationException;
@@ -20,7 +20,6 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ import java.util.List;
  * @author truthbean/Rogar·Q
  * @since 0.0.2
  */
-@ExtendWith({DebbieApplicationExtension.class})
+@DebbieApplicationTest
 public class SwaggerConfigurationTest {
 
     @Test

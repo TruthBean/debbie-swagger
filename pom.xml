@@ -28,7 +28,7 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <jackson.version>2.10.4</jackson.version>
-        <logger.version>0.1.0-SNAPSHOT</logger.version>
+        <logger.version>0.1.0-RELEASE</logger.version>
     </properties>
 
     <distributionManagement>
@@ -101,7 +101,7 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-integration</artifactId>
-            <version>2.0.10</version>
+            <version>2.1.4</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.fasterxml.jackson.core</groupId>
@@ -166,7 +166,7 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
 
         <dependency>
             <groupId>com.truthbean.logger</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>logger-core</artifactId>
             <version>${logger.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -187,7 +187,7 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
 
         <dependency>
             <groupId>com.truthbean.logger</groupId>
-            <artifactId>log4j2</artifactId>
+            <artifactId>log4j2-adapter</artifactId>
             <version>${logger.version}</version>
             <scope>test</scope>
         </dependency>

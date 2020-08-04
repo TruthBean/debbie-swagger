@@ -14,10 +14,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.truthbean.debbie.io.MediaTypeInfo;
 
 import com.truthbean.debbie.mvc.request.RequestParameterInfo;
+import com.truthbean.debbie.util.StringUtils;
 import io.swagger.v3.core.util.ParameterProcessor;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.parameters.Parameter;
-import org.apache.commons.lang3.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
