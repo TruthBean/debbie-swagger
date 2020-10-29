@@ -14,6 +14,7 @@ import com.truthbean.debbie.io.MediaTypeInfo;
 import com.truthbean.debbie.mvc.request.HttpMethod;
 import com.truthbean.debbie.mvc.router.Router;
 import com.truthbean.debbie.mvc.router.RouterAnnotationInfo;
+import com.truthbean.debbie.mvc.router.RouterAnnotationParser;
 import com.truthbean.debbie.util.StringUtils;
 import io.swagger.v3.core.util.ReflectionUtils;
 import io.swagger.v3.oas.integration.api.OpenAPIConfiguration;
@@ -37,7 +38,7 @@ public class SwaggerReaderUtils {
      * @return the collection of supported parameters
      */
     public static List<Parameter> collectFieldParameters(Class<?> cls, Components components, MediaTypeInfo consumes, JsonView jsonViewAnnotation) {
-        final List<Parameter> parameters = new ArrayList<Parameter>();
+        final List<Parameter> parameters = new ArrayList<>();
         for (Field field : ReflectionUtils.getDeclaredFields(cls)) {
             final List<Annotation> annotations = Arrays.asList(field.getAnnotations());
             final Type genericType = field.getGenericType();
@@ -86,8 +87,8 @@ public class SwaggerReaderUtils {
         return false;
     }
 
-    public static HttpMethod[] extractOperationMethods(Method method, Iterator<OpenAPIExtension> chain) {
-        RouterAnnotationInfo router = RouterAnnotationInfo.getRouterAnnotation(method);
+    public static HttpMethod[] extractOperationMethods(Method method, Iterator<OpenAPIExtension> chain, ClassLoader classLoader) {
+        RouterAnnotationInfo router = RouterAnnotationParser.getRouterAnnotation(method, classLoader);
         if (router != null) {
             var httpMethods = router.method();
             for (HttpMethod httpMethod : httpMethods) {
@@ -102,7 +103,7 @@ public class SwaggerReaderUtils {
         if (httpMethod != null) {
             return httpMethod;
         } else if ((ReflectionUtils.getOverriddenMethod(method)) != null) {
-            return extractOperationMethods(ReflectionUtils.getOverriddenMethod(method), chain);
+            return extractOperationMethods(ReflectionUtils.getOverriddenMethod(method), chain, classLoader);
         } else if (chain != null && chain.hasNext()) {
             return chain.next().extractOperationMethods(method, chain);
         } else {

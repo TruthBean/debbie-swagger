@@ -41,6 +41,6 @@ public class OpenAPIExtensions {
             LOGGER.debug("adding extension " + ext);
             extensions.add(ext);
         }
-        extensions.add(new DefaultParameterExtension());
+        extensions.add(new DefaultParameterExtension(OpenAPIExtensions.class.getClassLoader()));
     }
 }

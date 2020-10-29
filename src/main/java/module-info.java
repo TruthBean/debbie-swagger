@@ -16,6 +16,8 @@ module com.truthbean.debbie.swagger {
     exports com.truthbean.debbie.swagger;
     uses com.truthbean.debbie.swagger.OpenAPIExtension;
 
+    opens com.truthbean.debbie.swagger to com.truthbean.debbie.core;
+
     requires transitive com.truthbean.debbie.mvc;
     requires transitive com.fasterxml.jackson.annotation;
     requires transitive com.fasterxml.jackson.databind;

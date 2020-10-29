@@ -54,12 +54,13 @@ public class DebbieSwaggerRouter {
     public String swagger() throws JsonProcessingException {
         if (swagger == null) {
             SwaggerReader reader;
+            var classLoader = DebbieSwaggerRouter.class.getClassLoader();
             if (swaggerConfiguration != null) {
-                reader = new SwaggerReader(swaggerConfiguration);
+                reader = new SwaggerReader(swaggerConfiguration, classLoader);
             } else if (openApi != null) {
-                reader = new SwaggerReader(openApi);
+                reader = new SwaggerReader(openApi, classLoader);
             } else {
-                reader = new SwaggerReader();
+                reader = new SwaggerReader(classLoader);
             }
             OpenAPI newOpenApi = reader.read();
             YAMLMapper yamlMapper = new YAMLMapper();

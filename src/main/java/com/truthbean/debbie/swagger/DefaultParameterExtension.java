@@ -33,6 +33,11 @@ public class DefaultParameterExtension extends AbstractOpenAPIExtension {
     private static final String PATH_PARAM = "path";
     private static final String FORM_PARAM = "form";
 
+    private final ClassLoader classLoader;
+    public DefaultParameterExtension(ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
+
     @Override
     public ResolvedParameter extractParameters(List<Annotation> annotations,
                                                Type type,
@@ -49,7 +54,7 @@ public class DefaultParameterExtension extends AbstractOpenAPIExtension {
 
         Parameter parameter = null;
         for (Annotation annotation : annotations) {
-            RequestParameterInfo param = RequestParameterInfo.fromAnnotation(annotation);
+            RequestParameterInfo param = RequestParameterInfo.fromAnnotation(annotation, classLoader);
             if (param != null) {
                 String name;
                 switch (param.paramType()) {

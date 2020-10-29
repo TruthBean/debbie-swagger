@@ -17,10 +17,7 @@ import com.fasterxml.jackson.databind.introspect.AnnotatedParameter;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.truthbean.debbie.io.MediaTypeInfo;
 import com.truthbean.debbie.mvc.request.HttpMethod;
-import com.truthbean.debbie.mvc.router.MvcRouterRegister;
-import com.truthbean.debbie.mvc.router.Router;
-import com.truthbean.debbie.mvc.router.RouterAnnotationInfo;
-import com.truthbean.debbie.mvc.router.RouterInfo;
+import com.truthbean.debbie.mvc.router.*;
 import com.truthbean.debbie.mvc.url.RouterPathFragments;
 import com.truthbean.debbie.util.StringUtils;
 import io.swagger.v3.core.converter.AnnotatedType;
@@ -71,9 +68,11 @@ public class SwaggerReader implements OpenApiReader {
     private final Set<Tag> openApiTags;
 
     private final Set<RouterInfo> routerInfoSet;
+    private final ClassLoader classLoader;
 
-    public SwaggerReader() {
+    public SwaggerReader(ClassLoader classLoader) {
         routerInfoSet = MvcRouterRegister.getRouterInfoSet();
+        this.classLoader = classLoader;
         this.openAPI = new OpenAPI();
         paths = new Paths();
         openApiTags = new LinkedHashSet<>();
@@ -81,13 +80,13 @@ public class SwaggerReader implements OpenApiReader {
 
     }
 
-    public SwaggerReader(OpenAPI openAPI) {
-        this();
+    public SwaggerReader(OpenAPI openAPI, ClassLoader classLoader) {
+        this(classLoader);
         setConfiguration(new SwaggerConfiguration().openAPI(openAPI));
     }
 
-    public SwaggerReader(OpenAPIConfiguration openApiConfiguration) {
-        this();
+    public SwaggerReader(OpenAPIConfiguration openApiConfiguration, ClassLoader classLoader) {
+        this(classLoader);
         setConfiguration(openApiConfiguration);
     }
 
@@ -294,7 +293,7 @@ public class SwaggerReader implements OpenApiReader {
                     continue;
                 }
 
-                HttpMethod[] httpMethods = SwaggerReaderUtils.extractOperationMethods(method, OpenAPIExtensions.chain());
+                HttpMethod[] httpMethods = SwaggerReaderUtils.extractOperationMethods(method, OpenAPIExtensions.chain(), classLoader);
                 if (httpMethods != null) {
                     for (HttpMethod httpMethod : httpMethods) {
                         if (httpMethod == null) {
@@ -330,7 +329,10 @@ public class SwaggerReader implements OpenApiReader {
                                     .filter(annotation ->
                                             annotation.annotationType()
                                                     .equals(JsonView.class)
-                                    ).reduce((a, b) -> null)
+                                    ).reduce((a, b) -> {
+                                        // todo check
+                                        return null;
+                                    })
                                     .orElse(jsonViewAnnotation);
                         }
 
@@ -450,7 +452,7 @@ public class SwaggerReader implements OpenApiReader {
 
         // add tags from class to definition tags
         AnnotationsUtils
-                .getTags(apiTags, true).ifPresent(tags -> openApiTags.addAll(tags));
+                .getTags(apiTags, true).ifPresent(openApiTags::addAll);
 
         if (!openApiTags.isEmpty()) {
             Set<Tag> tagsSet = new LinkedHashSet<>();
@@ -856,11 +858,9 @@ public class SwaggerReader implements OpenApiReader {
             operation.setDeprecated(apiOperation.deprecated());
         }
 
-        SwaggerReaderUtils.getStringListFromStringArray(apiOperation.tags()).ifPresent(tags -> {
-            tags.stream()
-                    .filter(t -> operation.getTags() == null || (operation.getTags() != null && !operation.getTags().contains(t)))
-                    .forEach(operation::addTagsItem);
-        });
+        SwaggerReaderUtils.getStringListFromStringArray(apiOperation.tags()).ifPresent(tags -> tags.stream()
+                .filter(t -> operation.getTags() == null || (operation.getTags() != null && !operation.getTags().contains(t)))
+                .forEach(operation::addTagsItem));
 
         // if not set in root annotation
         if (operation.getExternalDocs() == null) {
@@ -1025,11 +1025,7 @@ public class SwaggerReader implements OpenApiReader {
         if (components.getRequestBodies() != null && components.getRequestBodies().size() > 0) {
             return false;
         }
-        if (components.getResponses() != null && components.getResponses().size() > 0) {
-            return false;
-        }
-
-        return true;
+        return components.getResponses() == null || components.getResponses().size() <= 0;
     }
 
     protected boolean isOperationHidden(Method method) {
@@ -1041,10 +1037,7 @@ public class SwaggerReader implements OpenApiReader {
         if (hidden != null) {
             return true;
         }
-        if (config != null && !Boolean.TRUE.equals(config.isReadAllResources()) && apiOperation == null) {
-            return true;
-        }
-        return false;
+        return config != null && !Boolean.TRUE.equals(config.isReadAllResources()) && apiOperation == null;
     }
 
     protected Class<?> getSubResourceWithJaxRsSubresourceLocatorSpecs(Method method) {
@@ -1059,7 +1052,7 @@ public class SwaggerReader implements OpenApiReader {
             type = rawType;
         }
 
-        if (RouterAnnotationInfo.getRouterAnnotation(method) != null) {
+        if (RouterAnnotationParser.getRouterAnnotation(method, classLoader) != null) {
             return type;
         }
         return null;

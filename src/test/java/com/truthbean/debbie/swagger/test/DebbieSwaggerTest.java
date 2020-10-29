@@ -56,7 +56,7 @@ public class DebbieSwaggerTest {
                     .openApiConfiguration(oasConfig)
                     .buildContext(true)
                     .read();
-            var reader = new SwaggerReader(openAPI);
+            var reader = new SwaggerReader(openAPI, context.getClassLoader());
             OpenAPI newOpenApi = reader.read();
             System.out.println(newOpenApi);
             System.out.println(JacksonUtils.toYaml(newOpenApi));

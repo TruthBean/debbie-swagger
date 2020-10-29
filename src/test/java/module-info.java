@@ -14,6 +14,7 @@
  */
 open module com.truthbean.debbie.swagger.test {
     requires com.truthbean.debbie.swagger;
+    requires com.truthbean.debbie.mvc;
     requires com.truthbean.debbie.test;
 
     requires io.swagger.v3.oas.models;

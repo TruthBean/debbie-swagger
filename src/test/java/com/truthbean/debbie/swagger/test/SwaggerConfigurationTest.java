@@ -46,7 +46,7 @@ public class SwaggerConfigurationTest {
                     .openApiConfiguration(oasConfig)
                     .buildContext(true)
                     .read();
-            var reader = new SwaggerReader(openAPI);
+            var reader = new SwaggerReader(openAPI, SwaggerConfigurationTest.class.getClassLoader());
             OpenAPI newOpenApi = reader.read();
             System.out.println(newOpenApi);
             System.out.println(JacksonUtils.toYaml(newOpenApi));
