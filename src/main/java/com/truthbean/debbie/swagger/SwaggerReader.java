@@ -183,6 +183,8 @@ public class SwaggerReader implements OpenApiReader {
 
         // OpenApiDefinition
         OpenAPIDefinition openAPIDefinition = ReflectionUtils.getAnnotation(cls, OpenAPIDefinition.class);
+        RestRouter restRouter = ReflectionUtils.getAnnotation(cls, RestRouter.class);
+        String routerTitle = null;
 
         if (openAPIDefinition != null) {
 
@@ -202,7 +204,7 @@ public class SwaggerReader implements OpenApiReader {
             // OpenApiDefinition tags
             AnnotationsUtils
                     .getTags(openAPIDefinition.tags(), false)
-                    .ifPresent(tags -> openApiTags.addAll(tags));
+                    .ifPresent(openApiTags::addAll);
 
             // OpenApiDefinition servers
             AnnotationsUtils
@@ -215,6 +217,8 @@ public class SwaggerReader implements OpenApiReader {
                         .getExtensions(openAPIDefinition.extensions()));
             }
 
+        } else if (restRouter != null) {
+            routerTitle = restRouter.title();
         }
 
         // class security schemes
@@ -252,6 +256,9 @@ public class SwaggerReader implements OpenApiReader {
             AnnotationsUtils
                     .getTags(apiTags, false)
                     .ifPresent(tags -> tags.stream().map(Tag::getName).forEach(classTags::add));
+        }
+        if (routerTitle != null) {
+            classTags.add(routerTitle);
         }
 
         // servers
@@ -641,7 +648,7 @@ public class SwaggerReader implements OpenApiReader {
                     .forEach(operation::addTagsItem);
             AnnotationsUtils
                     .getTags(apiTags.toArray(new io.swagger.v3.oas.annotations.tags.Tag[0]), true)
-                    .ifPresent(tags -> openApiTags.addAll(tags));
+                    .ifPresent(openApiTags::addAll);
         }
 
         // parameters

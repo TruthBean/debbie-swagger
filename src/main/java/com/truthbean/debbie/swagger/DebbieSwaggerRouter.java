@@ -27,7 +27,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 @Router
 public class DebbieSwaggerRouter {
 
-    @PropertyInject("debbie.web.dispatcher-mapping")
+    @PropertyInject(value = "debbie.web.dispatcher-mapping", defaultValue = "**")
     private String dispatcherMapping;
 
     @BeanInject(require = false, name = "openApi")

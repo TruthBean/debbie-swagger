@@ -11,6 +11,7 @@ package com.truthbean.debbie.swagger.test;
 
 import com.truthbean.debbie.io.MediaType;
 import com.truthbean.debbie.mvc.request.HttpMethod;
+import com.truthbean.debbie.mvc.request.QueryParameter;
 import com.truthbean.debbie.mvc.request.RequestParameter;
 import com.truthbean.debbie.mvc.request.RequestParameterType;
 import com.truthbean.debbie.mvc.router.Router;
@@ -33,10 +34,16 @@ public class DebbieSwaggerDemoRouter {
 
     @Operation(tags = {"example"})
     @Router(urlPatterns = "/swagger", method = HttpMethod.GET, responseType = MediaType.APPLICATION_JSON_UTF8)
-    public Map<String, String> swagger(@RequestParameter(name = "test", paramType = RequestParameterType.QUERY) String test) {
+    public Map<String, String> swagger(@QueryParameter(name = "test") String test) {
         Map<String, String> map = new HashMap<>();
         map.put("swagger test", test);
         return map;
+    }
+
+    @Operation(tags = {"example"})
+    @Router(urlPatterns = "/swagger2", method = HttpMethod.GET, responseType = MediaType.APPLICATION_JSON_UTF8, requestType = MediaType.APPLICATION_FORM_URLENCODED)
+    public RequestCondition swagger(@QueryParameter RequestCondition condition) {
+        return condition;
     }
 
 }

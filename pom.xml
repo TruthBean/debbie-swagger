@@ -15,7 +15,7 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
 
     <groupId>com.truthbean.debbie</groupId>
     <artifactId>debbie-swagger</artifactId>
-    <version>0.1.0-RELEASE</version>
+    <version>0.1.1-RELEASE</version>
 
     <packaging>jar</packaging>
 
@@ -27,8 +27,6 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
-        <jackson.version>2.10.5</jackson.version>
-        <logger.version>0.2.0-RELEASE</logger.version>
     </properties>
 
     <distributionManagement>
@@ -101,7 +99,7 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-integration</artifactId>
-            <version>2.1.4</version>
+            <version>2.1.5</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.fasterxml.jackson.core</groupId>
