@@ -93,7 +93,7 @@ Copyright (c) 2020 TruthBean(Rogar·Q)
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>swagger-ui</artifactId>
-            <version>3.22.2</version>
+            <version>3.23.11</version>
         </dependency>
 
         <dependency>
